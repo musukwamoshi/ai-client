@@ -1,0 +1,13 @@
+# nginx congifuration script
+server {
+    listen 80;
+    server_name 0.0.0.0;
+    root /var/www/ai-app/build;
+    index index.html index.htm;
+    try_files $uri /index.html;
+    # Static files
+    location /files/ {
+        autoindex on;
+        root /var/www/ai-app/files;
+    }
+}
