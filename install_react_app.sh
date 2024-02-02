@@ -1,14 +1,14 @@
 #!/bin/bash
 # If the Git repository URL is not provided, use the default app
 #set -x
-if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
-  echo "Usage: $0 <target_environment> <app_name> [git_repo_url]"
-  exit 1
-fi
+# if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
+#   echo "Usage: $0 <target_environment> <app_name> [git_repo_url]"
+#   exit 1
+# fi
 # Parse arguments
-TARGET_ENVIRONMENT=$1
-APP_NAME=$2
-GIT_REPO_URL=$3
+TARGET_ENVIRONMENT="prod"
+APP_NAME="ai-client"
+GIT_REPO_URL=https://github.com/musukwamoshi/ai-client.git
 
 # Check if TARGET_ENVIRONMENT is valid
 if [ "$TARGET_ENVIRONMENT" != "dev" ] && [ "$TARGET_ENVIRONMENT" != "prod" ]; then
@@ -46,8 +46,8 @@ fi
 # Check if Node.js is installed
 if ! command -v node &> /dev/null; then
     # Install npm and create-react-app
-    curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
-    sudo apt -y install nodejs
+    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&\
+    sudo apt-get install -y nodejs
     node  -v
 fi
 
@@ -74,31 +74,24 @@ fi
 
 # Delete existing app directory if it exists
 if [ -d "/var/www/$APP_NAME" ]; then
-  read -p "The $APP_NAME directory already exists. Do you want to delete it? (y/n) " confirm
-  if [[ "$confirm" =~ ^[Yy]$ ]]; then
-    sudo rm -rf "/var/www/$APP_NAME"
-    echo "Deleted $APP_NAME."
-    echo "Please run this script again to create the app."
-    exit 1
-  else
-    echo "Aborting."
-    exit 1
-  fi
+  sudo rm -rf "/var/www/$APP_NAME"
 fi
 
 # Build React app
 # If the Git repository URL is not provided, use the default app
-if [ -z "$GIT_REPO_URL" ]; then
-  echo "No Git repository URL provided. Using default app: $APP_NAME"
-  cd /var/www/ || exit 1
-  create-react-app "${APP_NAME}" # or git clone [URL of App Repository]
-  cd /var/www/"${APP_NAME}" || exit 1
-else
+# if [ -z "$GIT_REPO_URL" ]; then
+#   echo "No Git repository URL provided. Using default app: $APP_NAME"
+#   cd /var/www/ || exit 1
+#   create-react-app "${APP_NAME}" # or git clone [URL of App Repository]
+#   cd /var/www/"${APP_NAME}" || exit 1
+# else
   echo "Cloning Git repository: $GIT_REPO_URL"
   git clone "$GIT_REPO_URL" "$APP_NAME"
   mv "$APP_NAME"/ /var/www/
   cd /var/www/"${APP_NAME}" || exit 1
-fi
+  cd client || exit 1
+
+#fi
 
 
 
