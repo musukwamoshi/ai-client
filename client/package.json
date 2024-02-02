@@ -3,13 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "engines": {
-    "node": "16.13.0",
-    "npm": "8.6.0"
+    "node": "18.19.0",
+    "npm": "10.4.0"
   },
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
-    "build": "tsc && vite build --debug && mkdir -p ../dist/client && cp -r dist/* ../dist/client/",
+    "build": "tsc && vite build --debug",
     "preview": "vite preview",
     "test": "jest --passWithNoTests"
   },
