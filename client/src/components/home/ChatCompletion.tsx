@@ -61,7 +61,7 @@ export function ChatCompletion() {
                             }}
                             onSubmit={async (values, { setSubmitting, resetForm }) => {
                                 try {
-                                    const promptRequest = { model: 'TheBloke/Mistral-7B-OpenOrca-AWQ', safe_prompt: true, prompt: `${values.prompt}` };
+                                    const promptRequest = { model: 'TheBloke/Mistral-7B-Instruct-v0.2-AWQ', safe_prompt: true, prompt: `${values.prompt}` };
                                     // const timestamp = Date.now().toString();
                                     const conversationPiece = {
                                         id: conversation.length + 1,
@@ -90,10 +90,24 @@ export function ChatCompletion() {
                                         setSubmitting(false);
                                     } else {
                                         setSubmitting(false);
-                                        // notifyOnFailure(response.message);
+                                        const conversationResponse = {
+                                            id: conversation.length + 1,
+                                            entity: 'Model',
+                                            quote: 'Sorry there was an error retrieving the response',
+                                        };
+                                        conversation.push(<ResponseItem key={conversationResponse.id} response={conversationResponse} />);
+                                        setConversation([...conversation]);
+                                        notifyOnFailure('There was an error submitting the prompt.Please try again!');
                                     }
                                 } catch (err) {
                                     setSubmitting(false);
+                                    const conversationResponse = {
+                                        id: conversation.length + 1,
+                                        entity: 'Model',
+                                        quote: 'Sorry there was an error retrieving the response',
+                                    };
+                                    conversation.push(<ResponseItem key={conversationResponse.id} response={conversationResponse} />);
+                                    setConversation([...conversation]);
                                     notifyOnFailure('There was an error submitting the prompt.Please try again!');
                                 }
                             }}
