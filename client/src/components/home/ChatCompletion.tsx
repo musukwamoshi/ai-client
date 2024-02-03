@@ -78,8 +78,8 @@ export function ChatCompletion() {
                                     };
                                     conversation.push(<ResponseItem key={conversationPiece.id} response={conversationPiece} />);
                                     const response = await post('/completions', promptRequest);
+                                    console.log(response);
                                     if (response) {
-                                        console.log(response.choices[0].text);
                                         console.log('We are here');
                                         // const successMessage = 'Prompt was submitted successfully.You can now review';
                                         // notifyOnSuccess(successMessage);
