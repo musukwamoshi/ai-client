@@ -108,6 +108,7 @@ export function ChatCompletion() {
                                         notifyOnFailure('There was an error submitting the prompt.Please try again!');
                                     }
                                 } catch (err) {
+                                    console.log(err);
                                     setSubmitting(false);
                                     const conversationResponse = {
                                         id: conversation.length + 1,
