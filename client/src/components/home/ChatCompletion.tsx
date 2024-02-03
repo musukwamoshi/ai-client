@@ -7,6 +7,7 @@ import { CustomTextArea } from '../common/textarea';
 import { ResponseItem } from './ResponseItem';
 import { WithSideNav } from '../navigation/WithSideNav';
 import { post } from '../../utils/api';
+import { Toaster } from 'react-hot-toast';
 
 export function ChatCompletion() {
     const [conversation, setConversation] = useState<Array<any>>([]);
@@ -49,6 +50,13 @@ export function ChatCompletion() {
             <>
                 <section>
                     <div className="mx-auto max-w-screen-lg px-4 py-4 sm:px-6 sm:py-8 lg:px-8">
+                        <Toaster toastOptions={{
+                            duration: 5000,
+                            // Default options for specific types
+                            success: {
+                                duration: 3000,
+                            },
+                        }} />
                         <Formik
                             initialValues={{ model: '', safe_prompt: '', prompt: '' }}
                             validate={(values) => {
