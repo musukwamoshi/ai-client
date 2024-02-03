@@ -1,15 +1,15 @@
-import {config} from "dotenv";
+import { config } from "dotenv";
 import path from "path"
-config({path:path.join(__dirname,"../.env")})
+config({ path: path.join(__dirname, "../.env") })
 
-import {includes} from "lodash";
+import { includes } from "lodash";
 import ngrok from "ngrok";
 import nodemon from "nodemon";
 
-import {getRootUrl} from "../shared/utils/env";
+import { getRootUrl } from "../shared/utils/env";
 
 nodemon({
-    watch: [".","../shared"],
+    watch: [".", "../shared"],
     script: "server.ts",
     ext: "ts"
 });
@@ -17,43 +17,43 @@ nodemon({
 const hasNgrokUrl = includes(getRootUrl(), "ngrok.io");
 let isNgrokConnected = false;
 
-const onExit = async(): Promise<void> => {
-    if(hasNgrokUrl){
-        try{
+const onExit = async (): Promise<void> => {
+    if (hasNgrokUrl) {
+        try {
             console.debug("stopping dev server...");
             await ngrok.kill();
-            isNgrokConnected=false;
+            isNgrokConnected = false;
             process.exit();
-        }catch(error){
+        } catch (error) {
             console.error(`Unable to kill ngrok: ${error}`);
         }
     }
 };
 
 
-nodemon.on("start",async()=>{
+nodemon.on("start", async () => {
     console.debug("starting dev server...");
-    
-    if(!isNgrokConnected && hasNgrokUrl){
+
+    if (!isNgrokConnected && hasNgrokUrl) {
         const rootUrl = getRootUrl();
         const match = rootUrl.match(/\/\/([^.]*)\./);
-        const subdomain = match?match[1]:undefined;
-        const port = process.env.PORT||3001;
-        try{
-            const url = await ngrok.connect({subdomain,port});
-            console.debug(`ngrok connected. ${url} -> http://localhost:${port}`);
+        const subdomain = match ? match[1] : undefined;
+        const port = process.env.PORT || 8000;
+        try {
+            const url = await ngrok.connect({ subdomain, port });
+            console.debug(`ngrok connected. ${url} -> http://0.0.0.0:${port}`);
             isNgrokConnected = true;
-        }catch(error:any){
+        } catch (error: any) {
             console.error(
                 `Unable to start ngrok(${subdomain}:${port})`,
                 error.msg || JSON.stringify(error)
             );
         }
     }
-}).on("restart",() => {
+}).on("restart", () => {
     console.debug("\n\n\nServer source changed, restarting!");
 })
-.on("crash", onExit)
-.on("quit", onExit);
+    .on("crash", onExit)
+    .on("quit", onExit);
 
 process.on("SIGTERM", onExit)

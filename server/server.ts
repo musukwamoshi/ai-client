@@ -28,6 +28,6 @@ attachRoutes(app);
 if (process.argv[1] === __filename) {
     const PORT = process.env.PORT || 3001;
     app.listen(PORT, async () => {
-        console.log(`moshimusukwa.dev is now running on port ${PORT}`)
+        console.log(`ai.dev is now running on port ${PORT}`)
     })
 }
