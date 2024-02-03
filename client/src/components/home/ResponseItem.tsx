@@ -31,7 +31,7 @@ export function ResponseItem({ response }: ResponseProps) {
                         </h3>
 
                         <div className="mt-1 text-sm text-gray-700 line-clamp-3">
-                            {response.entity == 'Model' ? <Typewriter text={response.quote} delay={200} /> : response.quote}
+                            {response.entity == 'Model' ? <Typewriter text={response.quote} delay={100} /> : response.quote}
                         </div>
                     </div>
                 </div>
