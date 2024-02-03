@@ -31,6 +31,8 @@ const run = async (path: any, method: any, headers?: any, body?: any) => {
         body, credentials: 'include',
         headers, method,
     });
+    console.log('response from fetch');
+    console.log(response);
     const { ok } = response;
     let result;
     try {
