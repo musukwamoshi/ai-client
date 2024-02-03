@@ -3,3 +3,9 @@ export interface IModelResponseObject {
     entity: string,
     quote: string,
 }
+
+
+export interface ITypeWriterObject {
+    text: string
+    delay: number
+}

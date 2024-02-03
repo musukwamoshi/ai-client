@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { ChatCompletion } from '../adminside/ChatCompletion';
+import { ChatCompletion } from '../home/ChatCompletion';
 // import { Login } from '../authentication/Login';
 // import { SignUp } from '../authentication/SignUp';
 
 // import { PasswordReset } from '../authentication/PasswordReset';
-import { Embedding } from '../adminside/Embedding';
+import { Embedding } from '../home/Embedding';
 
 
 function AppRoutes() {

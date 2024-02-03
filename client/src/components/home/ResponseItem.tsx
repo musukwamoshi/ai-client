@@ -1,5 +1,8 @@
 import React from 'react';
 import { IModelResponseObject } from '../common/Interfaces';
+import Typewriter from './TypeWriter';
+import AIcon from './AIcon';
+import UserIcon from './UserIcon';
 
 export interface ResponseProps {
     response: IModelResponseObject
@@ -16,7 +19,7 @@ export function ResponseItem({ response }: ResponseProps) {
                     >
                         <div className="flex">
                             <p className="text-xs font-medium">
-                                {response.entity}
+                                {response.entity == 'Model' ? <AIcon /> : <UserIcon />}
                             </p>
                         </div>
                     </div>
@@ -28,7 +31,7 @@ export function ResponseItem({ response }: ResponseProps) {
                         </h3>
 
                         <div className="mt-1 text-sm text-gray-700 line-clamp-3">
-                            {response.quote}
+                            {response.entity == 'Model' ? <Typewriter text={response.quote} delay={200} /> : response.quote}
                         </div>
                     </div>
                 </div>
