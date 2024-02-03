@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc && vite build --debug",
-    "serve": "sudo serve -l tcp://0.0.0.0:3000 -s dist/",
+    "serve": "sudo -b serve -l tcp://0.0.0.0:3000 -s dist/",
+    "postserve": "exit 0",
     "preview": "vite preview",
     "test": "jest --passWithNoTests"
   },
