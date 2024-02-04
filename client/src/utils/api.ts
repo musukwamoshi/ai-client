@@ -27,7 +27,7 @@ const prepSubmission = async (unPreppedBody: any): Promise<{ preppedHeaders: {},
 
 
 const run = async (path: any, method: any, headers?: any, body?: any) => {
-    const baseUrl = 'http://0.0.0.0:8000/';
+    const baseUrl = 'http://127.0.0.1:8000/';
     const response = await fetch(`${baseUrl}v1${path}`, {
         body, credentials: 'include',
         headers, method,
