@@ -27,7 +27,8 @@ const prepSubmission = async (unPreppedBody: any): Promise<{ preppedHeaders: {},
 
 
 const run = async (path: any, method: any, headers?: any, body?: any) => {
-    const response = await fetch(`/v1${path}`, {
+    const baseUrl = 'http://localhost:8000/';
+    const response = await fetch(`${baseUrl}v1${path}`, {
         body, credentials: 'include',
         headers, method,
     });
