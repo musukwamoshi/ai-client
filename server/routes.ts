@@ -37,6 +37,6 @@ export const attachRoutes = (app: express.Application): void => {
     );
   } else {
     // use dev server
-    app.get("*", createProxyMiddleware({ target: "http://localhost:3000" }));
+    app.get("*", createProxyMiddleware({ target: "localhost:3000" }));
   }
 };

@@ -8,6 +8,9 @@ import { requestLogger } from "./middleware/loggingmiddleware";
 
 
 export const app = express();
+var allowedOrigins = ['http://localhost:3000',
+    'http://localhost:8000',
+    'http://yourapp.com', 'http://172.214.98.190:3000/'];
 app.use(
     cookieSession({
         name: "session",
@@ -17,7 +20,19 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(helmet({ contentSecurityPolicy: { useDefaults: true, directives: { 'script-src': ["'self'", "https://cdn.tiny.cloud/"], 'img-src': ["'self'", "https://tailwindui.com/", "https://sp.tinymce.com/", "http://www.w3.org/", "https://yoruikitenkai.s3.amazonaws.com/"], } } }));
-app.use(cors());
+app.use(cors({
+    origin: function (origin, callback) {
+        // allow requests with no origin 
+        // (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    }
+}));
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
@@ -26,7 +41,7 @@ app.use(requestLogger);
 attachRoutes(app);
 
 if (process.argv[1] === __filename) {
-    const PORT = process.env.PORT || 3001;
+    const PORT = process.env.PORT || 3000;
     app.listen(PORT, async () => {
         console.log(`ai.dev is now running on port ${PORT}`)
     })
