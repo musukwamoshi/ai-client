@@ -77,7 +77,7 @@ export function ChatCompletion() {
                                         quote: values.prompt,
                                     };
                                     conversation.push(<ResponseItem key={conversationPiece.id} response={conversationPiece} />);
-                                    const response = await post('v1/completions', promptRequest);
+                                    const response = await post('/completions', promptRequest);
                                     console.log(response);
                                     if (response) {
                                         console.log('We are here');
