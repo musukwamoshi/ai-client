@@ -69,7 +69,7 @@ export function ChatCompletion() {
                             }}
                             onSubmit={async (values, { setSubmitting, resetForm }) => {
                                 try {
-                                    const promptRequest = { model: 'TheBloke/Mistral-7B-Instruct-v0.2-AWQ', safe_prompt: true, prompt: `${values.prompt}` };
+                                    const promptRequest = { model: 'TheBloke/Mistral-7B-Instruct-v0.2-AWQ', safe_prompt: true, max_tokens: 200, prompt: `${values.prompt}` };
                                     // const timestamp = Date.now().toString();
                                     const conversationPiece = {
                                         id: conversation.length + 1,
@@ -77,7 +77,7 @@ export function ChatCompletion() {
                                         quote: values.prompt,
                                     };
                                     conversation.push(<ResponseItem key={conversationPiece.id} response={conversationPiece} />);
-                                    const response = await post('/completions', promptRequest);
+                                    const response = await post('v1/completions', promptRequest);
                                     console.log(response);
                                     if (response) {
                                         console.log('We are here');
