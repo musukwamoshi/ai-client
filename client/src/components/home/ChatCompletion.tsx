@@ -8,17 +8,19 @@ import { ResponseItem } from './ResponseItem';
 import { WithSideNav } from '../navigation/WithSideNav';
 import { post } from '../../utils/api';
 import { Toaster } from 'react-hot-toast';
+import { Loader } from '../common/Loader';
 
 export function ChatCompletion() {
     const [conversation, setConversation] = useState<Array<any>>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    // const renderLoader = (): ReactNode => {
-    //     return (
-    //         <>
-    //             <Loader />
-    //         </>
-    //     );
-    // };
+    const renderLoader = (): ReactNode => {
+        return (
+            <>
+                <Loader />
+            </>
+        );
+    };
 
     const renderDefault = (): ReactNode => {
         return (
@@ -49,6 +51,7 @@ export function ChatCompletion() {
         return (
             <>
                 <section>
+
                     <div className="mx-auto max-w-screen-lg px-4 py-4 sm:px-6 sm:py-8 lg:px-8">
                         <Toaster toastOptions={{
                             duration: 5000,
@@ -57,6 +60,7 @@ export function ChatCompletion() {
                                 duration: 3000,
                             },
                         }} />
+                        {isLoading ? renderLoader() : null}
                         <Formik
                             initialValues={{ model: '', safe_prompt: '', prompt: '' }}
                             validate={(values) => {
@@ -69,6 +73,7 @@ export function ChatCompletion() {
                             }}
                             onSubmit={async (values, { setSubmitting, resetForm }) => {
                                 try {
+                                    setIsLoading(true);
                                     const promptRequest = { model: 'TheBloke/Mistral-7B-Instruct-v0.2-AWQ', safe_prompt: true, max_tokens: 200, prompt: `${values.prompt}` };
                                     // const timestamp = Date.now().toString();
                                     const conversationPiece = {
@@ -78,9 +83,7 @@ export function ChatCompletion() {
                                     };
                                     conversation.push(<ResponseItem key={conversationPiece.id} response={conversationPiece} />);
                                     const response = await post('/completions', promptRequest);
-                                    console.log(response);
                                     if (response) {
-                                        console.log('We are here');
                                         // const successMessage = 'Prompt was submitted successfully.You can now review';
                                         // notifyOnSuccess(successMessage);
                                         resetForm({ values: { model: '', safe_prompt: '', prompt: '' } });
@@ -96,6 +99,7 @@ export function ChatCompletion() {
                                         setConversation([...conversation]);
                                         console.log('updated state');
                                         setSubmitting(false);
+                                        setIsLoading(false);
                                     } else {
                                         setSubmitting(false);
                                         const conversationResponse = {
@@ -136,7 +140,7 @@ export function ChatCompletion() {
                                             </div>
                                             <button
                                                 type="submit"
-                                                className=" mt-4 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-white sm:w-auto bg-indigo-800"
+                                                className=" mt-4 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-white sm:w-auto bg-violet-800"
                                                 disabled={isSubmitting}
                                             >
                                                 <span className="font-medium"> Generate Response </span>
@@ -162,7 +166,6 @@ export function ChatCompletion() {
                             )}
                         </Formik>
                         <div className="items-center">
-
                             {conversation.length > 0 ? renderResponses() : renderDefault()}
 
                         </div>

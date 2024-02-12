@@ -28,7 +28,7 @@ export const Footer = () => {
                         <ul className="flex flex-wrap justify-center gap-4 text-xs lg:justify-end">
                             <li>
                                 <a href="#" className="text-gray-500 transition hover:opacity-75">
-                                    &copy;   2023  Moshi Musukwa. All rights reserved.
+                                    &copy;   2024 The ZIG. All rights reserved.
                                 </a>
                             </li>
                             {/* <li>
@@ -54,7 +54,7 @@ export const Footer = () => {
                     <ul className="flex justify-center gap-6 mt-8 sm:mt-0 lg:justify-end">
                         <li>
                             <a
-                                href="https://www.linkedin.com/in/moshi-musukwa/"
+                                href=""
                                 rel="noreferrer"
                                 target="_blank"
                                 className="text-gray-700 transition hover:opacity-75"
@@ -120,7 +120,7 @@ export const Footer = () => {
 
                         <li>
                             <a
-                                href="https://github.com/musukwamoshi"
+                                href=""
                                 rel="noreferrer"
                                 target="_blank"
                                 className="text-gray-700 transition hover:opacity-75"

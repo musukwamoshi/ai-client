@@ -1,1 +1,1 @@
-A test AI CLient
+A test AI Client

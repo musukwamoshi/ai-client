@@ -74,7 +74,7 @@ export function WithSideNav({ children }: any) {
                         className="hidden items-center justify-center gap-8 text-sm font-medium lg:flex lg:w-0 lg:flex-1"
                     >
                         <Link to="/chat/completion" className="text-gray-900">Chat Completion</Link>
-                        <Link to="/embedding" className="text-gray-900" >Embedding</Link>
+                        {/* <Link to="/embedding" className="text-gray-900" >Embedding</Link> */}
                         {/* <Link to="#" className="text-gray-900" onClick={handleLogOut}>Logout</Link> */}
                     </nav>
 
@@ -122,14 +122,14 @@ export function WithSideNav({ children }: any) {
                         className="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium"
                     >
                         <Link to="/chat/completion" className="flex-shrink-0 pl-4 text-gray-900">Chat Completion</Link>
-                        <Link to="/embedding" className="flex-shrink-0 pl-4 text-gray-900" >Embedding</Link>
+                        {/* <Link to="/embedding" className="flex-shrink-0 pl-4 text-gray-900" >Embedding</Link> */}
                         {/* <Link to="" className="flex-shrink-0 pl-4 text-gray-900" onClick={handleLogOut}>Logout</Link> */}
                     </nav>
                 </div>
             </header>
             <div className="App">
                 <div className="h-screen flex overflow-hidden bg-gray-100">
-                    <div className="hidden bg-indigo-700 md:flex md:flex-shrink-0">
+                    <div className="hidden bg-violet-700 md:flex md:flex-shrink-0">
                         <div className="flex flex-col w-64">
                             <div className="flex-1 flex flex-col min-h-0">
                                 <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">

@@ -11,7 +11,7 @@
     "test": "jest --config ../jest.config.js",
     "build": "tsc --build"
   },
-  "author": "Moshi Musukwa",
+  "author": "Anon",
   "license": "ISC",
   "devDependencies": {
     "@types/lodash": "^4.14.199",
